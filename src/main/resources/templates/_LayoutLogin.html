@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library Manager</title>
+    <link rel="shortcut icon" type="image/png" href="/logo.png" />
+
+    <!-- BEGIN: Vendor CSS-->
+    <link href="/lib/vendors/css/vendors.min.css" rel="stylesheet" />
+
+    <!-- BEGIN: Theme CSS-->
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/bootstrap-extended.css" rel="stylesheet" />
+    <link href="/css/colors.css" rel="stylesheet" />
+    <link href="/css/components.css" rel="stylesheet" />
+    <link href="/css/themes/dark-layout.css" rel="stylesheet" />
+    <link href="/css/themes/bordered-layout.css" rel="stylesheet" />
+    <link href="/css/themes/semi-dark-layout.css" rel="stylesheet" />
+
+    <!-- BEGIN: Page CSS-->
+    <link href="/css/core/menu/menu-types/vertical-menu.css" rel="stylesheet" />
+    <link href="/css/plugins/forms/form-validation.css" rel="stylesheet" />
+    <link href="/css/pages/page-auth.css" rel="stylesheet" />
+
+    <link href="/lib/vendors/css/extensions/toastr.min.css" rel="stylesheet" />
+    <link href="/css/plugins/extensions/ext-component-toastr.css" rel="stylesheet" />
+
+</head>
+
+<!-- BEGIN: Body-->
+<body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">
+
+<!-- BEGIN: Content-->
+<section id="wrapper" layout:fragment="body">
+
+</section>
+<!-- END: Content-->
+
+<button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
+<!-- END: Footer-->
+<!-- BEGIN: Vendor JS-->
+<script src="/lib/vendors/js/vendors.min.js"></script>
+
+<!-- BEGIN: Theme JS-->
+<script src="/lib/core/app-menu.js?v=@Html.Raw(tick_)"></script>
+<script src="/lib/core/app.js?v=@Html.Raw(tick_)"></script>
+
+<script src="/lib/vendors/js/extensions/toastr.min.js"></script>
+
+<section layout:fragment="script">
+
+</section>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library Manager</title>
+    <link rel="shortcut icon" type="image/png" href="/logo.png" />
+
+    <!-- BEGIN: Vendor CSS-->
+    <link href="/lib/vendors/css/vendors.min.css" rel="stylesheet" />
+
+    <!-- BEGIN: Theme CSS-->
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/bootstrap-extended.css" rel="stylesheet" />
+    <link href="/css/colors.css" rel="stylesheet" />
+    <link href="/css/components.css" rel="stylesheet" />
+    <link href="/css/themes/dark-layout.css" rel="stylesheet" />
+    <link href="/css/themes/bordered-layout.css" rel="stylesheet" />
+    <link href="/css/themes/semi-dark-layout.css" rel="stylesheet" />
+
+    <!-- BEGIN: Page CSS-->
+    <link href="/css/core/menu/menu-types/vertical-menu.css" rel="stylesheet" />
+    <link href="/css/plugins/forms/form-validation.css" rel="stylesheet" />
+    <link href="/css/pages/page-auth.css" rel="stylesheet" />
+    <link href="/css/pages/app-user.css" rel="stylesheet" />
+
+    <link href="/lib/vendors/css/extensions/toastr.min.css" rel="stylesheet" />
+    <link href="/css/plugins/extensions/ext-component-toastr.css" rel="stylesheet" />
+
+</head>
+
+<!-- BEGIN: Body-->
+<body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">
+
+<!-- BEGIN: Content-->
+<section id="wrapper" layout:fragment="body">
+
+</section>
+<!-- END: Content-->
+
+<button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
+<!-- END: Footer-->
+<!-- BEGIN: Vendor JS-->
+<script src="/lib/vendors/js/vendors.min.js"></script>
+
+<!-- BEGIN: Theme JS-->
+<script src="/lib/core/app-menu.js"></script>
+<script src="/lib/core/app.js"></script>
+
+<script src="/lib/vendors/js/charts/chart.min.js"></script>
+
+<link href="/lib/vendors/css/pickers/flatpickr/flatpickr.min.css" rel="stylesheet" />
+<script src="/lib/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
+
+<script src="/lib/vendors/js/forms/select/select2.full.min.js"></script>
+<script src="/lib/scripts/forms/form-select2.js"></script>
+
+<script src="/lib/scripts/components/components-modals.js"></script>
+<script src="/lib/scripts/jquery.validate.nestable.js"></script>
+
+<script src="/lib/vendors/js/extensions/toastr.min.js"></script>
+
+<script src="/lib/vendors/js/editors/quill/katex.min.js"></script>
+<script src="/lib/vendors/js/editors/quill/highlight.min.js"></script>
+<script src="/lib/vendors/js/editors/quill/quill.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script>
+    $(window).on('load', function () {
+        if (feather) {
+            feather.replace({
+                width: 14,
+                height: 14
+            });
+        }
+    })
+</script>
+
+<section layout:fragment="script">
+
+</section>
+
+</body>
+</html>

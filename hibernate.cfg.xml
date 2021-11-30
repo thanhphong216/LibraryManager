@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//model/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/library?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;jdbcCompliantTruncation=false</property>
+        <property name="hibernate.connection.autoReconnect">true</property>
+        <property name="hibernate.connection.autoReconnectForPools">true</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
+
+
+        <property name="format_sql">true</property>
+        <property name="use_sql_comments">true</property>
+        <property name="hibernate.connection.autocommit">false</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="current_session_context_class">managed</property>
+        <property name="hibernate.search.autoregister_listeners">false</property>
+
+
+        <property name="hibernate.jdbc.batch_size">100</property>
+
+        <mapping class="com.phongthq.demo.sql.dbo.UserDBO"/>
+        <mapping class="com.phongthq.demo.sql.dbo.RoleDBO"/>
+        <mapping class="com.phongthq.demo.sql.dbo.BookDBO"/>
+        <mapping class="com.phongthq.demo.sql.dbo.BookDefindDBO"/>
+        <mapping class="com.phongthq.demo.sql.dbo.OrderDBO"/>
+        <mapping class="com.phongthq.demo.sql.dbo.OrderDetailDBO"/>
+    </session-factory>
+</hibernate-configuration>
