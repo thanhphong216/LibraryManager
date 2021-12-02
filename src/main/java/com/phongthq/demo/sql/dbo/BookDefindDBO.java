@@ -20,11 +20,6 @@ public class BookDefindDBO {
     @Column(name = "status_id")
     public int statusId;
 
-
-    public BookDefindDBO() {}
-    public BookDefindDBO(int hash, int bookId, int statusId) {
-        this.hash = hash;
-        this.bookId = bookId;
-        this.statusId = statusId;
-    }
+    @Column(name = "user_id")
+    public Integer userId;
 }

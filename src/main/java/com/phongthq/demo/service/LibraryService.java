@@ -2,23 +2,19 @@ package com.phongthq.demo.service;
 
 import com.phongthq.demo.constant.EBookStatus;
 import com.phongthq.demo.constant.EUserStatus;
-import com.phongthq.demo.model.BasketBorrowInfo;
-import com.phongthq.demo.model.BookInfo;
-import com.phongthq.demo.model.ResponseData;
-import com.phongthq.demo.model.UserInfo;
+import com.phongthq.demo.model.*;
 import com.phongthq.demo.sql.dao.BookDAO;
 import com.phongthq.demo.sql.dao.OrderDAO;
 import com.phongthq.demo.sql.dao.RoleDAO;
 import com.phongthq.demo.sql.dao.UserDAO;
-import com.phongthq.demo.sql.dbo.BookDBO;
-import com.phongthq.demo.sql.dbo.BookDefindDBO;
-import com.phongthq.demo.sql.dbo.RoleDBO;
-import com.phongthq.demo.sql.dbo.UserDBO;
+import com.phongthq.demo.sql.dbo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Quach Thanh Phong
@@ -26,7 +22,7 @@ import javax.servlet.http.HttpSession;
  */
 @Service
 public class LibraryService {
-    public final static String BASKET = "basket";
+    private final static String BASKET = "basket";
 
     @Autowired
     private UserDAO userDAO;
@@ -182,5 +178,51 @@ public class LibraryService {
                 return new ResponseData(200, "");
         }
         return new ResponseData(403, "Error system.");
+    }
+
+    /**
+     * Kiem tra sach dc muon ko
+     * @param bookHash
+     * @return
+     */
+    public ResponseData returnBook(int bookHash){
+        BookDefindDBO bookDefindDBO = bookDAO.getBookDefindById(bookHash);
+        if(bookDefindDBO == null){
+            return new ResponseBookReturn(403, "Book not defind!");
+        }
+        switch (EBookStatus.fromId(bookDefindDBO.statusId)){
+            case FREE:
+                return new ResponseBookReturn(403, "Book haven't been borrowed");
+            case BORROWED:
+                break;
+        }
+
+        Integer result = orderDAO.userReturnBook(bookHash);
+        if(result == null) return new ResponseBookReturn(403, "Error system.");
+
+        return new ResponseBookReturn(result);
+    }
+
+    /**
+     * Lay thong tin order
+     * @param orderId
+     * @return
+     */
+    public OrderInfo getOrderInfo(int orderId){
+        OrderDBO orderDBO = orderDAO.getOrderById(orderId);
+        if(orderDBO == null) return null;
+
+        List<OrderDetailDBO> orderDetailDBO = orderDAO.getOrderDetailById(orderId);
+        UserDBO userDBO = userDAO.getUserById(orderDBO.userId);
+        RoleDBO roleDBO = roleDAO.getRoleById(userDBO.roleId);
+        List<BookDBO> listBookDBO = bookDAO.getBookByHash(
+                orderDetailDBO.stream().map(obj -> obj.bookHash).collect(Collectors.toList()));
+
+        OrderInfo orderInfo = new OrderInfo(new UserInfo(userDBO.id, userDBO.name, EUserStatus.fromId(userDBO.statusId), roleDBO.name, userDBO.country, userDBO.contact));
+        for(BookDBO bookDBO : listBookDBO){
+            orderInfo.listBook.add(new BookInfo(-1, bookDBO.id, bookDBO.name, bookDBO.image));
+        }
+
+        return orderInfo;
     }
 }

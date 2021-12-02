@@ -8,12 +8,14 @@ public class BookInfo {
     public int hash;
     public int id;
     public String name;
+    public int count;
     public String img;
 
     public BookInfo(int hash, int id, String name, String img) {
         this.hash = hash;
         this.id = id;
         this.name = name;
+        this.count = 1;
         this.img = img;
     }
 }
