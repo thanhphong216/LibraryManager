@@ -7,6 +7,7 @@ package com.phongthq.demo.model;
 public class ResponseData {
     public int responseCode;
     public String description;
+    public String extend;
 
     public ResponseData(int responseCode, String description) {
         this.responseCode = responseCode;

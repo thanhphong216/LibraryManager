@@ -145,19 +145,24 @@ public class LibraryService {
         BasketBorrowInfo basketInfo = getBasketBorrowInfo(session);
         //Kiem tra user input
         if(basketInfo.user == null){
-            return new ResponseData(403, "User haven't been accept");
+            return new ResponseData(-2, "User haven't been accept");
         }
         //Kiem tra book input
         if(basketInfo.listBook.isEmpty()){
-            return new ResponseData(403, "Book haven't been accept");
+            return new ResponseData(-2, "Book haven't been accept");
         }
 
         //Save db
         boolean result = orderDAO.userBorrowBook(basketInfo);
+//        for(BookInfo bookInfo : basketInfo.listBook){
+//            if(EBookStatus.fromId(bookDAO.getBookDefindById(bookInfo.hash).statusId).getId() == EBookStatus.BORROWED.getId()){
+//                return new ResponseData(-2, "Book haven't been borrowed");
+//            }
+//        }
         if(result){
             return new ResponseData(200, "");
         }else {
-            return new ResponseData(403, "Error system.");
+            return new ResponseData(-2, "Error system.");
         }
     }
 
@@ -169,15 +174,15 @@ public class LibraryService {
     public ResponseData isBorrowedBook(int bookHash){
         BookDefindDBO bookDefindDBO = bookDAO.getBookDefindById(bookHash);
         if(bookDefindDBO == null){
-            return new ResponseData(200, "");
+            return new ResponseData(-2, "");
         }
         switch (EBookStatus.fromId(bookDefindDBO.statusId)){
             case FREE:
-                return new ResponseData(403, "Book haven't been borrowed");
+                return new ResponseData(-2, "Book haven't been borrowed");
             case BORROWED:
                 return new ResponseData(200, "");
         }
-        return new ResponseData(403, "Error system.");
+        return new ResponseData(-2, "Error system.");
     }
 
     /**
@@ -188,17 +193,17 @@ public class LibraryService {
     public ResponseData returnBook(int bookHash){
         BookDefindDBO bookDefindDBO = bookDAO.getBookDefindById(bookHash);
         if(bookDefindDBO == null){
-            return new ResponseBookReturn(403, "Book not defind!");
+            return new ResponseBookReturn(-2, "Book not defind!");
         }
         switch (EBookStatus.fromId(bookDefindDBO.statusId)){
             case FREE:
-                return new ResponseBookReturn(403, "Book haven't been borrowed");
+                return new ResponseBookReturn(-2, "Book haven't been borrowed");
             case BORROWED:
                 break;
         }
 
         Integer result = orderDAO.userReturnBook(bookHash);
-        if(result == null) return new ResponseBookReturn(403, "Error system.");
+        if(result == null) return new ResponseBookReturn(-2, "Error system.");
 
         return new ResponseBookReturn(result);
     }

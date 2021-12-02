@@ -42,10 +42,12 @@ public class LibraryController {
     @PutMapping("/bookborrow/user")
     public ResponseEntity<ResponseData> borrowBookUpdateUser(HttpServletRequest httpServletRequest,
                                                              Integer userId){
+        ResponseData responseData = null;
         if(userId == null){
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseData(500, "Param invalid!!!"));
+            responseData = new ResponseData(-1, "Param invalid!!!");
+            return ResponseEntity.status(HttpStatus.OK).body(responseData);
         } else {
-            ResponseData responseData = libraryService.updateUserBasketBorrowInfo(httpServletRequest.getSession(), userId);
+            responseData = libraryService.updateUserBasketBorrowInfo(httpServletRequest.getSession(), userId);
             return ResponseEntity.status(HttpStatus.OK).body(responseData);
         }
     }
@@ -53,10 +55,12 @@ public class LibraryController {
     @PutMapping("/bookborrow/book")
     public ResponseEntity<ResponseData> borrowBookUpdateBook(HttpServletRequest httpServletRequest,
                                                              Integer bookId){
+        ResponseData responseData = null;
         if(bookId == null){
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseData(500, "Param invalid!!!"));
+            responseData = new ResponseData(-1, "Param invalid!!!");
+            return ResponseEntity.status(HttpStatus.OK).body(responseData);
         } else {
-            ResponseData responseData = libraryService.updateBookBasketBorrowInfo(httpServletRequest.getSession(), bookId);
+            responseData = libraryService.updateBookBasketBorrowInfo(httpServletRequest.getSession(), bookId);
             return ResponseEntity.status(HttpStatus.OK).body(responseData);
         }
     }
@@ -64,10 +68,12 @@ public class LibraryController {
     @DeleteMapping("/bookborrow/book")
     public ResponseEntity<ResponseData> borrowBookDeleteBook(HttpServletRequest httpServletRequest,
                                                              Integer bookId){
+        ResponseData responseData = null;
         if(bookId == null){
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseData(500, "Param invalid!!!"));
+            responseData = new ResponseData(-1, "Param invalid!!!");
+            return ResponseEntity.status(HttpStatus.OK).body(responseData);
         }else {
-            ResponseData responseData = libraryService.deleteBookBasketBorrowInfo(httpServletRequest.getSession(), bookId);
+            responseData = libraryService.deleteBookBasketBorrowInfo(httpServletRequest.getSession(), bookId);
             return ResponseEntity.status(HttpStatus.OK).body(responseData);
         }
     }
@@ -80,10 +86,12 @@ public class LibraryController {
 
     @GetMapping("/bookborrow/book")
     public ResponseEntity<ResponseData> checkBorrowBook(Integer bookId){
+        ResponseData responseData = null;
         if(bookId == null){
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseData(500, "Param invalid!!!"));
+            responseData = new ResponseData(-1, "Param invalid!!!");
+            return ResponseEntity.status(HttpStatus.OK).body(responseData);
         }else {
-            ResponseData responseData = libraryService.isBorrowedBook(bookId);
+            responseData = libraryService.isBorrowedBook(bookId);
             return ResponseEntity.status(HttpStatus.OK).body(responseData);
         }
     }
@@ -95,10 +103,12 @@ public class LibraryController {
 
     @PostMapping("/bookreturn/book")
     public ResponseEntity<ResponseData> returnBook(Integer bookId){
+        ResponseData responseData = null;
         if(bookId == null){
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseData(500, "Param invalid!!!"));
+            responseData = new ResponseData(-1, "Param invalid!!!");
+            return ResponseEntity.status(HttpStatus.OK).body(responseData);
         }else {
-            ResponseData responseData = libraryService.returnBook(bookId);
+            responseData = libraryService.returnBook(bookId);
             return ResponseEntity.status(HttpStatus.OK).body(responseData);
         }
     }

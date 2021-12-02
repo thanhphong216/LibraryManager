@@ -31,5 +31,6 @@
         <mapping class="com.phongthq.demo.sql.dbo.BookDefindDBO"/>
         <mapping class="com.phongthq.demo.sql.dbo.OrderDBO"/>
         <mapping class="com.phongthq.demo.sql.dbo.OrderDetailDBO"/>
+        <mapping class="com.phongthq.demo.sql.dbo.AccountDBO"/>
     </session-factory>
 </hibernate-configuration>
