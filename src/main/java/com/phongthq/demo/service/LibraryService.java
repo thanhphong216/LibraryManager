@@ -164,4 +164,23 @@ public class LibraryService {
             return new ResponseData(403, "Error system.");
         }
     }
+
+    /**
+     * Kiem tra sach dc muon ko
+     * @param bookHash
+     * @return
+     */
+    public ResponseData isBorrowedBook(int bookHash){
+        BookDefindDBO bookDefindDBO = bookDAO.getBookDefindById(bookHash);
+        if(bookDefindDBO == null){
+            return new ResponseData(200, "");
+        }
+        switch (EBookStatus.fromId(bookDefindDBO.statusId)){
+            case FREE:
+                return new ResponseData(403, "Book haven't been borrowed");
+            case BORROWED:
+                return new ResponseData(200, "");
+        }
+        return new ResponseData(403, "Error system.");
+    }
 }

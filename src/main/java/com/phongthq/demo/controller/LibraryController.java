@@ -81,6 +81,13 @@ public class LibraryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseData);
     }
 
+    @ResponseBody
+    @GetMapping("/bookborrow/book")
+    public ResponseEntity<ResponseData> checkBorrowBook(Model model, Integer bookId){
+        ResponseData responseData = libraryService.isBorrowedBook(bookId);
+        return ResponseEntity.status(HttpStatus.OK).body(responseData);
+    }
+
     @GetMapping("/bookreturn")
     public String bookReturn(Model model){
         return "library/bookreturn";
