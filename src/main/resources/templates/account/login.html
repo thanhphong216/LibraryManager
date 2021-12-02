@@ -62,6 +62,7 @@
             var a = $(that).attr('action');
             $.post($(that).attr('action'), $(that).serialize(), function (data) {
                 if (data.responseCode > 0) {
+                    alert("Success");
                     window.location.href = data.extend;
                 } else {
                     toastr['error'](data.description, 'Error!', {

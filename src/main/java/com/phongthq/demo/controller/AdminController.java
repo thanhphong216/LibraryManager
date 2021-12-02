@@ -4,6 +4,7 @@ import com.phongthq.demo.model.ResponseData;
 import com.phongthq.demo.model.UserInfo;
 import com.phongthq.demo.service.AdminService;
 import com.phongthq.demo.utils.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AdminController {
 
+    @Autowired
     private AdminService accountService;
 
 
-    @GetMapping("/account")
+    @GetMapping("/login")
     public String index(){
         return "account/login";
     }

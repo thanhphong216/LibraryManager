@@ -28,7 +28,7 @@ public class AccountDAO {
             session.beginTransaction();
 
             //logic
-            String sql = "SELECT * FROM account WHERE username = " + username + " AND password = " + password;
+            String sql = "SELECT * FROM account WHERE username = '" + username + "' AND password = '" + password + "'";
             SQLQuery sqlQuery = session.createSQLQuery(sql).addEntity(AccountDBO.class);
             List<AccountDBO> listResult = sqlQuery.list();
 
