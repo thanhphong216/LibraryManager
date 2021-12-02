@@ -40,7 +40,7 @@ public class LibraryController {
 
     @ResponseBody
     @PutMapping("/bookborrow/user")
-    public ResponseEntity<ResponseData> borrowBookUpdateUser(HttpServletRequest httpServletRequest, Model model,
+    public ResponseEntity<ResponseData> borrowBookUpdateUser(HttpServletRequest httpServletRequest,
                                                              Integer userId){
         if(userId == null){
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseData(500, "Param invalid!!!"));
@@ -52,7 +52,7 @@ public class LibraryController {
 
     @ResponseBody
     @PutMapping("/bookborrow/book")
-    public ResponseEntity<ResponseData> borrowBookUpdateBook(HttpServletRequest httpServletRequest, Model model,
+    public ResponseEntity<ResponseData> borrowBookUpdateBook(HttpServletRequest httpServletRequest,
                                                              Integer bookId){
         if(bookId == null){
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseData(500, "Param invalid!!!"));
@@ -64,7 +64,7 @@ public class LibraryController {
 
     @ResponseBody
     @DeleteMapping("/bookborrow/book")
-    public ResponseEntity<ResponseData> borrowBookDeleteBook(HttpServletRequest httpServletRequest, Model model,
+    public ResponseEntity<ResponseData> borrowBookDeleteBook(HttpServletRequest httpServletRequest,
                                                              Integer bookId){
         if(bookId == null){
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseData(500, "Param invalid!!!"));
