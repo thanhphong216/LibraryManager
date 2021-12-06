@@ -193,19 +193,21 @@ public class LibraryService {
     public ResponseData returnBook(int bookHash){
         BookDefindDBO bookDefindDBO = bookDAO.getBookDefindById(bookHash);
         if(bookDefindDBO == null){
-            return new ResponseBookReturn(-2, "Book not defind!");
+            return new ResponseData(-2, "Book not defind!");
         }
         switch (EBookStatus.fromId(bookDefindDBO.statusId)){
             case FREE:
-                return new ResponseBookReturn(-2, "Book haven't been borrowed");
+                return new ResponseData(-2, "Book haven't been borrowed");
             case BORROWED:
                 break;
         }
 
         Integer result = orderDAO.userReturnBook(bookHash);
-        if(result == null) return new ResponseBookReturn(-2, "Error system.");
+        if(result == null) return new ResponseData(-2, "Error system.");
 
-        return new ResponseBookReturn(result);
+        ResponseData responseData = new ResponseData(200, "");
+        responseData.extend = "/order/" + result;
+        return responseData;
     }
 
     /**

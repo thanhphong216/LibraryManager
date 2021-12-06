@@ -1,5 +1,5 @@
 <!-- BEGIN: Content-->
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
       layout:decorate="~{_LayoutLogin.html}">
 <section layout:fragment="body">
 
@@ -19,7 +19,7 @@
                                 <h2 class="brand-text text-primary ml-1">LOGIN</h2>
                             </a>
 
-                            <form class="auth-login-form mt-2" name="form_login" action="login" method="POST">
+                            <form th:action="login" class="auth-login-form mt-2" name="form_login" action="login" method="POST">
                                 <div class="form-group">
                                     <label for="login-username" class="form-label">Username</label>
                                     <input type="text" class="form-control" id="login-username" name="username" placeholder="Username" aria-describedby="login-email" tabindex="1" autofocus />
@@ -59,7 +59,6 @@
     <script type="text/javascript">
         $('form[name=form_login]').submit(function () {
             var that = this;
-            var a = $(that).attr('action');
             $.post($(that).attr('action'), $(that).serialize(), function (data) {
                 if (data.responseCode > 0) {
                     alert("Success");
