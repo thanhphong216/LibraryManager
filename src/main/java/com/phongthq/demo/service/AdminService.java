@@ -5,8 +5,10 @@ import com.phongthq.demo.model.UserInfo;
 import com.phongthq.demo.sql.dao.AccountDAO;
 import com.phongthq.demo.sql.dao.RoleDAO;
 import com.phongthq.demo.sql.dao.UserDAO;
+import com.phongthq.demo.sql.dbo.AccountDBO;
 import com.phongthq.demo.sql.dbo.RoleDBO;
 import com.phongthq.demo.sql.dbo.UserDBO;
+import com.phongthq.demo.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,10 @@ public class AdminService {
     public int userLogin(String username, String password){
         int accountId = accountDAO.getAccountId(username, password);
         return accountId;
+    }
+
+    public AccountDBO getAccountInfoByAuth(int auth){
+        return accountDAO.getAccountDBO(auth);
     }
 
     public UserInfo getUserInfoByAuth(int auth){

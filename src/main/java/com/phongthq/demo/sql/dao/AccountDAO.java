@@ -47,4 +47,28 @@ public class AccountDAO {
 
         return id;
     }
+
+    public AccountDBO getAccountDBO(int auth){
+        AccountDBO accountDBO = null;
+
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+
+            accountDBO = session.get(AccountDBO.class, auth);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (session != null && session.isOpen() && session.getTransaction() != null)
+                session.getTransaction().rollback();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return accountDBO;
+    }
 }

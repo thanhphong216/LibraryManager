@@ -3,31 +3,26 @@ package com.phongthq.demo.controller;
 import com.phongthq.demo.model.ResponseData;
 import com.phongthq.demo.model.UserInfo;
 import com.phongthq.demo.service.AdminService;
+import com.phongthq.demo.utils.JwtUtils;
 import com.phongthq.demo.utils.SecurityUtils;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
@@ -44,11 +39,12 @@ public class AdminController {
     @Autowired
     private AdminService accountService;
 
+    @Autowired
+    private JwtUtils jwtUtils;
+
 
     @GetMapping("/login")
     public String index(){
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
         return "account/login";
     }
 
@@ -56,9 +52,8 @@ public class AdminController {
     public ResponseEntity<ResponseData> login(HttpServletRequest request,
                                               @RequestParam String username,
                                               @RequestParam String password){
-        ResponseData responseData = null;
         if(username.isEmpty() || password.isEmpty()){
-            responseData = new ResponseData(-1, "Dữ liệu đầu vào không hợp lệ");
+            ResponseData responseData = new ResponseData(-1, "Dữ liệu đầu vào không hợp lệ");
             return ResponseEntity.status(HttpStatus.OK).body(responseData);
         }
 
@@ -85,6 +80,7 @@ public class AdminController {
             }
         }
 
+        ResponseData responseData;
         if(success){
             responseData = new ResponseData(200, "Đăng nhập thành công");
             responseData.extend = "/";
@@ -95,6 +91,24 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.OK).body(responseData);
     }
 
+    @PostMapping("/api/login")
+    public ResponseEntity<?> tokenLogin(HttpServletRequest request,
+                                              @RequestParam(required = false) String username,
+                                              @RequestParam(required = false) String password){
+        if(StringUtils.isEmptyOrWhitespace(username) || StringUtils.isEmptyOrWhitespace(password)){
+            ResponseData responseData = new ResponseData(-1, "Dữ liệu đầu vào không hợp lệ");
+            return ResponseEntity.status(HttpStatus.OK).body(responseData);
+        }
+
+        String token = jwtUtils.generateToken(username, SecurityUtils.hashMD5(password.trim()));
+        if(token.isEmpty()){
+            ResponseData responseData = new ResponseData(-1, "Dữ liệu đầu vào không hợp lệ");
+            return ResponseEntity.status(HttpStatus.OK).body(responseData);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(token);
+        }
+    }
+
     @PostMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -102,5 +116,16 @@ public class AdminController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "direct:/login";
+    }
+
+    @GetMapping("")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<ResponseData> getListUser(){
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    @PutMapping
+    public ResponseEntity<ResponseData> addListUser(){
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 }

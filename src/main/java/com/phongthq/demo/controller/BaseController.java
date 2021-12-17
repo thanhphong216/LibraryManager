@@ -9,9 +9,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
  */
 public abstract class BaseController {
 
-    @Autowired
-    private InMemoryUserDetailsManager inMemoryUserDetailsManager;
-
     public String notPermision(){
         return "/403";
     }
